@@ -80,13 +80,7 @@ sftp_users:
         - exceptions/duplicate_ucid:103
         - test:104
 
-
-
-
-
-
-
-  - name:               VFT5001
+  - name: VFT5007
       directories:
         - inbound: 101
         - outbound:102
