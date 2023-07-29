@@ -33,9 +33,6 @@ if __name__ == "__main__":
         else:
             print("Newly added lines in the YAML file between the working directory and the latest commit:")
             z=0
-            for line in added_lines:
-                print(z)
-                z+=1
-                print(line)
+            print(added_lines[1][8:])
     except git.GitCommandError as e:
         print(f"Error: {e}")

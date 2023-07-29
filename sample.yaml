@@ -79,4 +79,10 @@ sftp_users:
         - outbound:102
         - exceptions/duplicate_ucid:103
         - test:104
+  - name: VFT5000
+      directories:
+        - inbound: 101
+        - outbound:102
+        - exceptions/duplicate_ucid:103
+        - test:104
     
