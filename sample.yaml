@@ -65,5 +65,12 @@ sftp_users:
         - inbound
         - outbound
         - exceptions/duplicate_ucid
+        - test   
+
+  - name: VFT4449
+      directories:
+        - inbound
+        - outbound
+        - exceptions/duplicate_ucid
         - test         
     
