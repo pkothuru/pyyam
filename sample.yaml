@@ -1,0 +1,14 @@
+---
+sftp_users:
+  - name: VFT4201
+    directories:
+      - inbound
+      - outbound
+      - exceptions/duplicate_ucid
+      - test
+  - name: VFT4204
+    directories:
+      - inbound
+      - outbound
+      - exceptions/duplicate_ucid
+      - test
