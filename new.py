@@ -6,13 +6,14 @@ def get_added_lines_in_yaml(repo_path, yaml_file_path):
     head_commit = repo.head.commit
 
     diff = repo.git.diff(head_commit.parents[0], head_commit, "--", yaml_file_path)
-
-    added_lines = []
+    added_lines = ""
     for line in diff.splitlines():
         if line.startswith("+") and not line.startswith("+++"):
-            added_lines.append(line.strip("+ ").strip())
-
-    return added_lines
+            if "name" in line:
+                added_lines+=(line.strip("+ ").strip())
+                added_lines=added_lines.replace(" ","")
+                split_string = added_lines.split(":", 1)
+    return split_string[1]
 
 if __name__ == "__main__":
     repo_path = "/Users/priyatha.kothuru/Desktop/pyyam"  # Replace this with the path to your Git repository
@@ -33,6 +34,6 @@ if __name__ == "__main__":
         else:
             print("Newly added lines in the YAML file between the working directory and the latest commit:")
             z=0
-            print(added_lines[1][8:])
+            print(added_lines)
     except git.GitCommandError as e:
         print(f"Error: {e}")
