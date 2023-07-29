@@ -54,4 +54,10 @@ sftp_users:
       - outbound
       - exceptions/duplicate_ucid
       - test  
+  - name: VFT4445
+      directories:
+        - inbound
+        - outbound
+        - exceptions/duplicate_ucid
+        - test      
     
