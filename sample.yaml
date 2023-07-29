@@ -12,7 +12,7 @@ sftp_users:
       - outbound
       - exceptions/duplicate_ucid
       - test
-  - name: VFT4204
+  - name: VFT4203
     directories:
       - inbound
       - outbound
