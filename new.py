@@ -13,8 +13,14 @@ def get_yaml_changes(repo_path, yaml_file_path):
     commit1 = commits[1]
     commit2 = commits[0]
 
-    diff = repo.git.diff(commit1, commit2, "--", yaml_file_path)
-    return diff
+    diff = repo.git.diff(commit1, commit2, "--name-only")
+    changed_files = diff.splitlines()
+
+    if yaml_file_path in changed_files:
+        yaml_changes = repo.git.diff(commit1, commit2, "--", yaml_file_path)
+        return yaml_changes
+    else:
+        return None
 
 def load_yaml_file(file_path):
     with open(file_path, "r") as file:
@@ -33,13 +39,23 @@ if __name__ == "__main__":
         exit(1)
 
     yaml_changes = get_yaml_changes(repo_path, yaml_file_path)
-    if not yaml_changes.strip():
-        print("No differences found in the YAML file between the last two commits.")
+    if yaml_changes is None:
+        print("No differences found in the 'name' field of the YAML file between the last two commits.")
     else:
         print("Changes in the YAML file between the last two commits:")
         print(yaml_changes)
 
-    # Optionally, you can also load and print the YAML content for the latest commit:
-    latest_yaml_content = load_yaml_file(yaml_file_path)
-    # print("Latest YAML content:")
-    # print(yaml.dump(latest_yaml_content, default_flow_style=False))
+        # Extract and print the names of the differences from the Git diff
+        names_of_differences = []
+        for line in yaml_changes.splitlines():
+            if line.strip().startswith("- name: "):
+                name = line.strip().split(": ")[1]
+                names_of_differences.append(name)
+
+        print("Names of the differences:")
+        print(names_of_differences)
+
+        # Optionally, you can also load and print the YAML content for the latest commit:
+        latest_yaml_content = load_yaml_file(yaml_file_path)
+        print("Latest YAML content:")
+        print(yaml.dump(latest_yaml_content, default_flow_style=False))
